@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://cxf.apache.org/configuration/beans"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://cxf.apache.org/configuration/beans http://cxf.apache.org/schemas/configuration/cxf-beans.xsd
+		http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+	<!-- 使用 CXF 提供的 Spring 命名空间来配置 Service Bean（即上文提到的 Resource Class）与 Provider。注意， 
+		这里配置了一个 address 属性为"/rest"，表示 REST 请求的相对路径，与 web.xml 中配置的"/ws/*"结合起来， 最终的 
+		REST 请求根路径是"/ws/rest" -->
+	<jaxrs:server address="/rest">
+		<jaxrs:serviceBeans>
+			<ref bean="productServiceImpl" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+</beans>
